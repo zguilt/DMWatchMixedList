@@ -8,14 +8,22 @@
  	</head>
   	<body>
 		<pre id="json-data"></pre>
+		    <script>
+		      function fetchJsonData() {
+			return fetch('https://dmwatch.in/reports/mixedlist.json')
+			  .then(response => response.json())
+			  .then(data => JSON.stringify(data, null, 2))
+			  .catch(error => {
+			    console.error(error);
+			    return null;
+			  });
+		      }
 
-		<script>
-			fetch('https://dmwatch.in/reports/mixedlist.json')
-        			.then(response => response.json())
-        			.then(data => {
-          				document.getElementById('json-data').textContent = JSON.stringify(data, null, 2);
-        			})
-        		.catch(error => console.error(error));
-    		</script>
+		      if (typeof module !== 'undefined' && module.exports) {
+			module.exports = fetchJsonData;
+		      } else {
+			fetchJsonData().then(json => document.getElementById('json-data').textContent = json);
+		      }
+		    </script>
   	</body>
 </html>
