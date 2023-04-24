@@ -12,11 +12,16 @@
 
 	<script>
 		fetch('https://dmwatch.in/reports/mixedlist.json')
-			.then(response => response.json())
-			.then(data => {
-				document.getElementById('json').textContent = JSON.stringify(data, null, 2);
-			})
-			.catch(error => console.error(error));
+                .then(response => response.json())
+                .then(data => {
+                    if (req.headers['user-agent'].includes('curl')) {
+                        res.setHeader('Content-Type', 'text/plain');
+                        res.send(JSON.stringify(data));
+                    } else {
+                        document.getElementById('json').textContent = JSON.stringify(data, null, 2);
+                    }
+                })
+                .catch(error => console.error(error));
 	</script>
   </body>
 </html>
