@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>.</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-	<pre id="json-data"></pre>
+ 	<head>
+    		<meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    		<title>.</title>
+ 	</head>
+  	<body>
+		<pre id="json-data"></pre>
 
-	<script>
-		fetch('https://dmwatch.in/reports/mixedlist.json')
-			.then(response => response.json())
-			.then(data => {
-				// Check if request is being made via curl
-				if (navigator.userAgent.includes('curl')) {
-					// Set the Content-Type header to application/json
-					const headers = new Headers();
-					headers.set('Content-Type', 'application/json');
-					// Return the JSON data as plain text with the appropriate header
-					const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-					const objectURL = URL.createObjectURL(blob);
-					document.write(objectURL);
-				} else {
-					// Display JSON data on page
-					document.getElementById('json-data').textContent = JSON.stringify(data, null, 2);
-				}
-			})
-			.catch(error => console.error(error));
-	</script>
-  </body>
+		<script>
+			fetch('https://dmwatch.in/reports/mixedlist.json')
+        			.then(response => response.json())
+        			.then(data => {
+          				document.getElementById('json-data').textContent = JSON.stringify(data, null, 2);
+        			})
+        		.catch(error => console.error(error));
+    		</script>
+  	</body>
 </html>
