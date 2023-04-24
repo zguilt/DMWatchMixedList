@@ -14,11 +14,18 @@
 		fetch('https://dmwatch.in/reports/mixedlist.json')
 			.then(response => response.json())
 			.then(data => {
+				// Check if request is being made via curl
 				if (navigator.userAgent.includes('curl')) {
-					document.contentType = 'text/plain';
-					document.write(JSON.stringify(data));
+					// Set the Content-Type header to application/json
+					const headers = new Headers();
+					headers.set('Content-Type', 'application/json');
+					// Return the JSON data as plain text with the appropriate header
+					const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+					const objectURL = URL.createObjectURL(blob);
+					document.write(objectURL);
 				} else {
-					document.getElementById('json').textContent = JSON.stringify(data, null, 2);
+					// Display JSON data on page
+					document.getElementById('json-data').textContent = JSON.stringify(data, null, 2);
 				}
 			})
 			.catch(error => console.error(error));
