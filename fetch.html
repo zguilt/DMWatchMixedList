@@ -10,7 +10,7 @@
 		<pre id="json-data"></pre>
 		    <script>
 		      function fetchJsonData() {
-			return fetch('https://dmwatch.in/reports/mixedlist.json')
+			return fetch('https://dm.watch/api/mixedlist.json')
 			  .then(response => response.json())
 			  .then(data => JSON.stringify(data, null, 2))
 			  .catch(error => {
